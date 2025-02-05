@@ -1,13 +1,12 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { GridComponent } from './components/grid/grid.component';
-import { CellComponent } from './components/cell/cell.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, GridComponent, CellComponent],
+  imports: [GridComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
   title = 'CarestinoChallenge';
