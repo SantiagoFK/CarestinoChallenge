@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, ElementRef, input, model, OnInit, viewChild, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, model, 
+  OnInit, viewChild  } from '@angular/core';
 
 @Component({
   selector: 'app-cell',

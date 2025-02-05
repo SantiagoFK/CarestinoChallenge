@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, QueryList } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CellComponent } from '../cell/cell.component';
 
 @Component({
@@ -10,26 +10,32 @@ import { CellComponent } from '../cell/cell.component';
 })
 export class GridComponent implements OnInit {
   currentScreenWidth!: number;
-  cellWidth!: number;
-  cells: CellComponent[] = [];
+  currentScreenHeight!: number;
 
-  //Set the rows
-  //use ngfor to create cells
+  cells: CellComponent[] = [];
+  cellWidth!: number;
+  totalCells!: number;
+
+  rowCount!: number;
 
   ngOnInit(): void {
-    console.log(window.screen.availWidth);
-    //Get current screen width
-    this.currentScreenWidth = window.screen.availWidth;
+    //Get current screen width and height (could be observables)
+    this.currentScreenWidth = window.screen.width;
+    this.currentScreenHeight = window.screen.height;
 
     //Divide the screen width in 100 parts (cells)
-    this.cellWidth = this.currentScreenWidth / 100;
+    this.cellWidth = this.currentScreenWidth / 100
 
+    //Divide the screen height in cellWidth measure
+    this.rowCount = Math.ceil(this.currentScreenHeight / this.cellWidth);
+
+    //Total cells needed
+    this.totalCells = this.rowCount * 100;
     
-    // for(let i = 0; i < 99; i++){
-    //   let newCell!: CellComponent;
-    //   newCell.width.set(this.cellWidth);
-    //   this.cells = [...this.cells, newCell];
-    // }
+    for(let j = 0; j < this.totalCells; j++){
+      let newCell!: CellComponent;
+      this.cells = [...this.cells, newCell];
+    }
   }
 
 }

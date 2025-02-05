@@ -1,7 +1,7 @@
-<p>grid</p>
+<div class="grid">
+    @for (cell of cells; track $index) {
+        <app-cell [width]="this.cellWidth"></app-cell>
+    }
+</div>
 
-@for (cell of cells; track $index) {
-}
-
-<app-cell [width]="this.cellWidth"></app-cell>
 
