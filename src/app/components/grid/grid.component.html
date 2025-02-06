@@ -1,6 +1,7 @@
 <div class="grid" (mousedown)="toggleDrawingMode()" (mouseup)="toggleDrawingMode()">
     @for (cell of cells; track $index) {
-        <app-cell [width]="this.cellWidth" [drawingModeIsOn]="this.drawing()"></app-cell>
+        <app-cell [width]="this.cellWidth" [drawingModeIsOn]="this.drawing()" 
+        (colorChanged)="setActiveColor($event)" [activeColor]="activeColor()"></app-cell>
     }
 </div>
 

@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, inject, model, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, model, OnInit } from '@angular/core';
 import { CellComponent } from '../cell/cell.component';
+import { colorPalette } from '../../shared/color-pallette';
 
 @Component({
   selector: 'app-grid',
@@ -19,6 +20,8 @@ export class GridComponent implements OnInit {
   protected totalCells!: number;
 
   drawing = model<boolean>(false);
+
+  activeColor= model<string>(colorPalette['pink']);
 
   ngOnInit(): void {
     //Get current screen width and height (could be observables)
@@ -41,5 +44,9 @@ export class GridComponent implements OnInit {
   }
 
   protected toggleDrawingMode = (): void => this.drawing.update(value => !value);
+
+  protected setActiveColor(newColor: keyof typeof colorPalette): void {
+    this.activeColor.set(colorPalette[newColor]);
+  }
     
 }

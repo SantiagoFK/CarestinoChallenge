@@ -13,12 +13,13 @@ cdkConnectedOverlay
 [cdkConnectedOverlayHasBackdrop]="true"
 (backdropClick)="contextMenuIsOpen = !contextMenuIsOpen"
 (overlayOutsideClick)="contextMenuIsOpen = !contextMenuIsOpen"
+(overlayKeydown)="contextMenuIsOpen = !contextMenuIsOpen"
 >
     <div class="color-picker">
-        <div class="color-picker__color-1"></div>
-        <div class="color-picker__color-2"></div>
-        <div class="color-picker__color-3"></div>
-        <div class="color-picker__color-4"></div>
-        <div class="color-picker__color-5"></div>
+        <div class="color-picker__color-1" (click)="setActiveColor('pink')"></div>
+        <div class="color-picker__color-2" (click)="setActiveColor('coral')"></div>
+        <div class="color-picker__color-3" (click)="setActiveColor('darkPurple')"></div>
+        <div class="color-picker__color-4" (click)="setActiveColor('gold')"></div>
+        <div class="color-picker__color-5" (click)="setActiveColor('aqua')"></div>
     </div>
 </ng-template>

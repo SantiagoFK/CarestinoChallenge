@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, ElementRef, inject, model, 
-  OnInit, Renderer2, viewChild  } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, model, OnInit, output, viewChild  } from '@angular/core';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { colorPalette } from '../../shared/color-pallette';
 
 @Component({
   selector: 'app-cell',
@@ -16,8 +16,10 @@ export class CellComponent implements OnInit {
   private clickedCell : boolean = false;
   contextMenuIsOpen = false;
   drawingModeIsOn = model<boolean>();
-  
 
+  colorChanged = output<keyof typeof colorPalette>();
+  activeColor = model<string>();
+  
   ngOnInit(): void {
     //set width and height based on grid parent input
     (this.cell()!.nativeElement as HTMLElement).style.width = `${this.width()}px`;
@@ -27,25 +29,28 @@ export class CellComponent implements OnInit {
   }
   
   protected toggleColor() : void {
-    
     this.clickedCell = !this.clickedCell;
    
     (this.cell()!.nativeElement as HTMLElement).style.backgroundColor = 
-      (this.clickedCell) ? 'purple' : 'initial'; 
+      (this.clickedCell) ? this.activeColor()! : 'white'; 
   }
 
-  protected handleContext(event: Event): void{
+  protected handleContext(event: Event): void {
     event.preventDefault();
-    
     this.contextMenuIsOpen = !this.contextMenuIsOpen;
   }
   
   protected handleHover(): void {
     if(this.drawingModeIsOn()){
       this.clickedCell = !this.clickedCell;
-      
+
       (this.cell()!.nativeElement as HTMLElement).style.backgroundColor = 
-        (this.clickedCell) ? 'purple' : 'initial'; 
+      (this.clickedCell) ? this.activeColor()! : 'white'; 
     }
+  }
+
+  protected setActiveColor(newColor: keyof typeof colorPalette): void {
+    this.contextMenuIsOpen = !this.contextMenuIsOpen;
+    this.colorChanged.emit(newColor);
   }
 }
