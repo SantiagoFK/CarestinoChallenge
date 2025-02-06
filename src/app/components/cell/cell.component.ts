@@ -19,6 +19,8 @@ export class CellComponent implements OnInit {
 
   isOpen = false;
 
+  drawing = model<boolean>();
+
   ngOnInit(): void {
     //set width and height based on grid parent input
     (this.cell()!.nativeElement as HTMLElement).style.width = `${this.width()}px`;
@@ -29,8 +31,6 @@ export class CellComponent implements OnInit {
   
   protected toggleColor(ev?:Event) : void {
     
-    if(ev)
-
     this.active = !this.active;
    
     (this.cell()!.nativeElement as HTMLElement).style.backgroundColor = 
@@ -41,5 +41,16 @@ export class CellComponent implements OnInit {
     event.preventDefault();
     
     this.isOpen = !this.isOpen;
+  }
+  
+  public handleHover(): void {
+    console.log("active: ", this.drawing());
+
+    if(this.drawing()){
+      this.active = !this.active;
+      
+      (this.cell()!.nativeElement as HTMLElement).style.backgroundColor = 
+        (this.active) ? 'purple' : 'initial'; 
+    }
   }
 }

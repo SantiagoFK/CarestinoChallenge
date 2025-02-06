@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, model, OnInit } from '@angular/core';
 import { CellComponent } from '../cell/cell.component';
 
 @Component({
@@ -17,6 +17,10 @@ export class GridComponent implements OnInit {
   totalCells!: number;
 
   rowCount!: number;
+
+  drawing = model<boolean>(false);
+
+
 
   ngOnInit(): void {
     //Get current screen width and height (could be observables)
@@ -38,4 +42,13 @@ export class GridComponent implements OnInit {
     }
   }
 
+  public active(): void {
+    console.log("active"); 
+    this.drawing.update(value => !value);
+  }
+
+  public deactive(): void {
+    console.log("deactive");
+    this.drawing.update(value => !value);
+  }
 }

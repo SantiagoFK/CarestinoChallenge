@@ -1,6 +1,6 @@
-<div class="grid">
+<div class="grid" (mousedown)="active()" (mouseup)="deactive()">
     @for (cell of cells; track $index) {
-        <app-cell [width]="this.cellWidth"></app-cell>
+        <app-cell [width]="this.cellWidth" [drawing]="this.drawing()"></app-cell>
     }
 </div>
 
