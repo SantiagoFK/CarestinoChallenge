@@ -13,13 +13,10 @@ export class CellComponent implements OnInit {
   width = model<number>(0);
   cell = viewChild<ElementRef>('cell');
   context = viewChild<ElementRef>('context');
-  private active : boolean = false;
+  private clickedCell : boolean = false;
+  contextMenuIsOpen = false;
+  drawingModeIsOn = model<boolean>();
   
-  renderer2 : Renderer2 = inject(Renderer2);
-
-  isOpen = false;
-
-  drawing = model<boolean>();
 
   ngOnInit(): void {
     //set width and height based on grid parent input
@@ -29,28 +26,26 @@ export class CellComponent implements OnInit {
     (this.cell()!.nativeElement as HTMLElement).style.height = `${this.width()}px`;
   }
   
-  protected toggleColor(ev?:Event) : void {
+  protected toggleColor() : void {
     
-    this.active = !this.active;
+    this.clickedCell = !this.clickedCell;
    
     (this.cell()!.nativeElement as HTMLElement).style.backgroundColor = 
-      (this.active) ? 'purple' : 'initial'; 
+      (this.clickedCell) ? 'purple' : 'initial'; 
   }
 
   protected handleContext(event: Event): void{
     event.preventDefault();
     
-    this.isOpen = !this.isOpen;
+    this.contextMenuIsOpen = !this.contextMenuIsOpen;
   }
   
-  public handleHover(): void {
-    console.log("active: ", this.drawing());
-
-    if(this.drawing()){
-      this.active = !this.active;
+  protected handleHover(): void {
+    if(this.drawingModeIsOn()){
+      this.clickedCell = !this.clickedCell;
       
       (this.cell()!.nativeElement as HTMLElement).style.backgroundColor = 
-        (this.active) ? 'purple' : 'initial'; 
+        (this.clickedCell) ? 'purple' : 'initial'; 
     }
   }
 }

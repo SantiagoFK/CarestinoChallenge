@@ -3,24 +3,22 @@ import { CellComponent } from '../cell/cell.component';
 
 @Component({
   selector: 'app-grid',
-  imports: [CellComponent ],
+  imports: [CellComponent],
   templateUrl: './grid.component.html',
   styleUrl: './grid.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GridComponent implements OnInit {
-  currentScreenWidth!: number;
-  currentScreenHeight!: number;
+  private currentScreenWidth!: number;
+  private currentScreenHeight!: number;
+  
+  private rowCount!: number;
 
-  cells: CellComponent[] = [];
-  cellWidth!: number;
-  totalCells!: number;
-
-  rowCount!: number;
+  protected cells: CellComponent[] = [];
+  protected cellWidth!: number;
+  protected totalCells!: number;
 
   drawing = model<boolean>(false);
-
-
 
   ngOnInit(): void {
     //Get current screen width and height (could be observables)
@@ -42,13 +40,6 @@ export class GridComponent implements OnInit {
     }
   }
 
-  public active(): void {
-    console.log("active"); 
-    this.drawing.update(value => !value);
-  }
-
-  public deactive(): void {
-    console.log("deactive");
-    this.drawing.update(value => !value);
-  }
+  protected toggleDrawingMode = (): void => this.drawing.update(value => !value);
+    
 }

@@ -1,16 +1,18 @@
-<div class="cell" (click)="this.toggleColor()" (contextmenu)="this.handleContext($event)" #cell
+<div class="cell" 
+    (click)="this.toggleColor()" 
+    (contextmenu)="this.handleContext($event)"
+    (mouseover)="this.handleHover()" 
     cdkOverlayOrigin #trigger="cdkOverlayOrigin"
-    (mouseover)="this.handleHover()"></div>
-
-<!-- <div class="cell--context-menu" #context></div> -->
+    #cell></div>
 
 <!-- This template displays the overlay content and is connected to the button -->
 <ng-template
 cdkConnectedOverlay
 [cdkConnectedOverlayOrigin]="trigger"
-[cdkConnectedOverlayOpen]="isOpen"
-
-(overlayOutsideClick)="isOpen = !isOpen"
+[cdkConnectedOverlayOpen]="contextMenuIsOpen"
+[cdkConnectedOverlayHasBackdrop]="true"
+(backdropClick)="contextMenuIsOpen = !contextMenuIsOpen"
+(overlayOutsideClick)="contextMenuIsOpen = !contextMenuIsOpen"
 >
 <ul class="example-list">
     <li>Item 1</li>
